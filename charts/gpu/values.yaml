@@ -10,6 +10,12 @@
 gpu-operator:
   # -- (bool) Install the NVIDIA GPU Operator.
   enabled: true
+  driver:
+    # -- (string) KAI gpu-fractioning, which runai-cluster bundles, needs an r615+ driver
+    # (KAI-Scheduler docs/operator/README.md). The operator's default r595 ships an
+    # nvidia-cuda-mps-control without -p/-a, so mpsd crash-loops and the cluster stays
+    # MissingPrerequisites.
+    version: "615.71.09"
 
 # @schema
 # additionalProperties: true

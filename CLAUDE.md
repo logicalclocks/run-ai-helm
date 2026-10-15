@@ -57,4 +57,5 @@ Do not edit `values.schema.json` or `README.md` by hand.
 | The post-install RBAC hook writes into `runai-reservation`, which no template creates | `run-ai/local-dev.sh` `deploy_runai_cluster` |
 | Registration API: `POST /api/v1/token` (password grant), `GET`/`POST /api/v1/clusters`, `GET /api/v1/clusters/{uuid}/cluster-install-info` | `runai-installer/installer/internal/orchestrator2/actions/` |
 | Keycloak's main container needs `keycloakx.database.*` set explicitly | `run-ai/.local-dev/values-cp.yaml` |
-| The operator finds the Prometheus Operator in any namespace | `go-operator/pkg/controller-utils/dependency_checkers.go` |
+| The operator finds the Prometheus Operator in any namespace, by Deployment name matching `(prometheus\|rancher-monitoring).*operator`, so `charts/monitoring` sets `fullnameOverride` | `go-operator/pkg/controller-utils/dependency_checkers.go` |
+| KAI gpu-fractioning (bundled by `runai-cluster`) needs an r615+ driver; the GPU Operator default is older, so `charts/gpu` pins `driver.version` | `KAI-Scheduler/docs/operator/README.md` |

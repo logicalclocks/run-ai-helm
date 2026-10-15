@@ -46,7 +46,9 @@
           ]
         }
       },
-      "required": [],
+      "required": [
+        "driver"
+      ],
       "title": "gpu-operator",
       "type": "object"
     },
