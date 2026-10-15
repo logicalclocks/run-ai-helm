@@ -1,0 +1,6 @@
+apiVersion: v2
+name: runailib
+description: Shared helpers for the runai umbrella chart's subcharts
+type: library
+version: 0.1.0
+appVersion: "0.1.0"

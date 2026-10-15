@@ -1,0 +1,1 @@
+{{- include "runailib.validateRelease" (dict "context" .) -}}

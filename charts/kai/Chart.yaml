@@ -1,0 +1,14 @@
+apiVersion: v2
+name: kai
+description: Standalone KAI Scheduler, for clusters that run KAI without Run:ai
+type: application
+version: 0.1.0
+appVersion: "v0.18.3"
+dependencies:
+  - name: runailib
+    version: 0.1.0
+    repository: file://../runailib
+  # Same version runai-cluster 3.0.20 bundles through kai-resource-management.
+  - name: kai-scheduler
+    version: v0.18.3
+    repository: oci://ghcr.io/kai-scheduler/kai-scheduler

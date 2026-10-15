@@ -1,0 +1,21 @@
+dependencies:
+- name: runailib
+  repository: ""
+  version: 0.1.0
+- name: controlplane
+  repository: ""
+  version: 0.1.0
+- name: cluster
+  repository: ""
+  version: 0.1.0
+- name: kai
+  repository: ""
+  version: 0.1.0
+- name: monitoring
+  repository: ""
+  version: 0.1.0
+- name: gpu
+  repository: ""
+  version: 0.1.0
+digest: sha256:e0ad1d2516e3559473142d64c6fc13e1eac3a9ef207b3750ce2b372896122403
+generated: "2026-10-15T04:51:13.20739432+02:00"

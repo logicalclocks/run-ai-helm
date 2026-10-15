@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "properties": {
+    "global": {
+      "description": "Global values are values that can be accessed from any chart or subchart by exactly the same name.",
+      "required": [],
+      "title": "global",
+      "type": "object"
+    },
+    "kai-scheduler": {
+      "additionalProperties": true,
+      "description": "Values for the upstream kai-scheduler chart (oci://ghcr.io/kai-scheduler/kai-scheduler). Its global.* keys are set at the umbrella's global level.",
+      "patternProperties": {
+        ".*": {
+          "required": [],
+          "type": [
+            "object",
+            "array",
+            "string",
+            "number",
+            "integer",
+            "boolean",
+            "null"
+          ]
+        }
+      },
+      "required": [],
+      "title": "kai-scheduler",
+      "type": "object"
+    },
+    "runailib": {
+      "additionalProperties": true,
+      "description": " additionalProperties: true @schema @ignored",
+      "required": [],
+      "title": "runailib"
+    }
+  },
+  "required": [],
+  "type": "object"
+}

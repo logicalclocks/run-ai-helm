@@ -1,0 +1,12 @@
+dependencies:
+- name: runailib
+  repository: file://../runailib
+  version: 0.1.0
+- name: gpu-operator
+  repository: https://helm.ngc.nvidia.com/nvidia
+  version: v26.7.1
+- name: fake-gpu-operator
+  repository: oci://ghcr.io/run-ai/fake-gpu-operator
+  version: 0.0.62
+digest: sha256:8069d2d1081bd5812014d4763507b1ef2112aebd14dfd186787f3794f001587e
+generated: "2026-10-15T04:49:26.414173942+02:00"

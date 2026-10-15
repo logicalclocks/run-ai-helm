@@ -1,0 +1,19 @@
+apiVersion: v2
+name: gpu
+description: NVIDIA GPU Operator, or the Run:ai fake GPU operator for clusters without GPUs
+type: application
+version: 0.1.0
+appVersion: "v26.7.1"
+dependencies:
+  - name: runailib
+    version: 0.1.0
+    repository: file://../runailib
+  # Pinned to what runai-installer installs for Run:ai 3.0 (internal/orchestrator2/compat/matrix.go).
+  - name: gpu-operator
+    version: v26.7.1
+    repository: https://helm.ngc.nvidia.com/nvidia
+    condition: gpu-operator.enabled
+  - name: fake-gpu-operator
+    version: 0.0.62
+    repository: oci://ghcr.io/run-ai/fake-gpu-operator
+    condition: fake-gpu-operator.enabled

@@ -1,0 +1,13 @@
+{{- include "runailib.validateRelease" (dict "context" . "namespace" "runai-backend" "reason" "runai-installer, the cluster-registration script and the services' config defaults (secret-generator, assets-service) all assume it") -}}
+{{- if or (not .Values.global.domain) (eq .Values.global.domain "localhost") -}}
+{{- fail "global.domain must be set to the FQDN the control plane is served on, e.g. runai.example.com" -}}
+{{- end -}}
+{{- if and .Values.tls.certManager.enabled (or .Values.tls.certificate .Values.tls.key) -}}
+{{- fail "controlplane.tls: set either certificate+key or certManager.enabled, not both" -}}
+{{- end -}}
+{{- if or (and .Values.tls.certificate (not .Values.tls.key)) (and .Values.tls.key (not .Values.tls.certificate)) -}}
+{{- fail "controlplane.tls.certificate and controlplane.tls.key must be set together" -}}
+{{- end -}}
+{{- if and .Values.tls.certManager.enabled (not .Values.tls.certManager.issuerRef.name) -}}
+{{- fail "controlplane.tls.certManager.issuerRef.name is required when controlplane.tls.certManager.enabled is true" -}}
+{{- end -}}

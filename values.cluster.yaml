@@ -1,0 +1,6 @@
+# Release: runai-cluster in namespace runai, after the control plane is up. Layer the values
+# file scripts/register_cluster.sh writes on top of this one.
+global:
+  _runai:
+    cluster:
+      enabled: true

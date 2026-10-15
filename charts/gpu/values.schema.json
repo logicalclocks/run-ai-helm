@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "properties": {
+    "fake-gpu-operator": {
+      "additionalProperties": true,
+      "description": "Values for the Run:ai fake GPU operator, which simulates GPUs on nodes labelled run.ai/simulated-gpu-node-pool=\u003cpool\u003e. For test clusters without GPUs.",
+      "patternProperties": {
+        ".*": {
+          "required": [],
+          "type": [
+            "object",
+            "array",
+            "string",
+            "number",
+            "integer",
+            "boolean",
+            "null"
+          ]
+        }
+      },
+      "required": [],
+      "title": "fake-gpu-operator",
+      "type": "object"
+    },
+    "global": {
+      "description": "Global values are values that can be accessed from any chart or subchart by exactly the same name.",
+      "required": [],
+      "title": "global",
+      "type": "object"
+    },
+    "gpu-operator": {
+      "additionalProperties": true,
+      "description": "Values for the NVIDIA GPU Operator (https://helm.ngc.nvidia.com/nvidia).",
+      "patternProperties": {
+        ".*": {
+          "required": [],
+          "type": [
+            "object",
+            "array",
+            "string",
+            "number",
+            "integer",
+            "boolean",
+            "null"
+          ]
+        }
+      },
+      "required": [],
+      "title": "gpu-operator",
+      "type": "object"
+    },
+    "runailib": {
+      "additionalProperties": true,
+      "description": " additionalProperties: true @schema @ignored",
+      "required": [],
+      "title": "runailib"
+    }
+  },
+  "required": [],
+  "type": "object"
+}

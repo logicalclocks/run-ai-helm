@@ -1,0 +1,9 @@
+dependencies:
+- name: runailib
+  repository: file://../runailib
+  version: 0.1.0
+- name: kai-scheduler
+  repository: oci://ghcr.io/kai-scheduler/kai-scheduler
+  version: v0.18.3
+digest: sha256:dcec8677bccb09b37fb61cc359cd69f373f79336cc020b59a79fcdd933b732d0
+generated: "2026-10-15T04:49:16.561475149+02:00"

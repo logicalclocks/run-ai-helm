@@ -1,0 +1,8 @@
+{{- include "runailib.validateRelease" (dict "context" . "namespace" "runai" "reason" "runai-cluster hard-codes namespace: runai in its templates") -}}
+{{- $rc := index .Values "runai-cluster" -}}
+{{- if not (dig "development" "headless" false $rc) -}}
+{{- $credential := or $rc.controlPlane.bootstrapToken $rc.controlPlane.clientSecret (dig "controlPlane" "existingSecret" "" $rc) -}}
+{{- if not (and $rc.controlPlane.url $rc.cluster.uid $rc.cluster.url $credential) -}}
+{{- fail "cluster: runai-cluster.controlPlane.url, runai-cluster.cluster.uid, runai-cluster.cluster.url and one of runai-cluster.controlPlane.{bootstrapToken,clientSecret,existingSecret} are required. scripts/register_cluster.sh registers the cluster in the control plane and writes them to a values file." -}}
+{{- end -}}
+{{- end -}}

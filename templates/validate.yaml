@@ -1,0 +1,4 @@
+{{- $r := .Values.global._runai -}}
+{{- if not (or $r.controlPlane.enabled $r.cluster.enabled $r.kaiScheduler.enabled $r.monitoring.enabled $r.gpu.enabled) -}}
+{{- fail "No component is enabled. Install with one of the profiles: values.prerequisites.yaml, values.control-plane.yaml, values.cluster.yaml or values.kai-scheduler.yaml (see README.md and scripts/install.sh)." -}}
+{{- end -}}

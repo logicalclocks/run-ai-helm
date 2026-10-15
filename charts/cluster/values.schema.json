@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "properties": {
+    "global": {
+      "description": "Global values are values that can be accessed from any chart or subchart by exactly the same name.",
+      "required": [],
+      "title": "global",
+      "type": "object"
+    },
+    "runai-cluster": {
+      "additionalProperties": true,
+      "description": "Values for the upstream Run:ai runai-cluster chart (https://helm.ngc.nvidia.com/nvidia/runai-oss). It installs KAI Scheduler as runai-cluster.kai-resource-management.kai-scheduler.",
+      "patternProperties": {
+        ".*": {
+          "required": [],
+          "type": [
+            "object",
+            "array",
+            "string",
+            "number",
+            "integer",
+            "boolean",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "controlPlane",
+        "cluster"
+      ],
+      "title": "runai-cluster",
+      "type": "object"
+    },
+    "runailib": {
+      "additionalProperties": true,
+      "description": " additionalProperties: true @schema @ignored",
+      "required": [],
+      "title": "runailib"
+    }
+  },
+  "required": [],
+  "type": "object"
+}

@@ -1,0 +1,27 @@
+# yaml-language-server: $schema=values.schema.json
+
+# @schema
+# additionalProperties: true
+# patternProperties:
+#   ".*":
+#     type: [object, array, string, number, integer, boolean, "null"]
+# @schema
+# -- (object) Values for the upstream kube-prometheus-stack chart. The Run:ai cluster operator
+# needs the Prometheus Operator and its CRDs; it creates its own Prometheus instance.
+kube-prometheus-stack:
+  grafana:
+    enabled: false
+  alertmanager:
+    enabled: false
+  nodeExporter:
+    enabled: false
+  prometheus:
+    prometheusSpec:
+      serviceMonitorSelectorNilUsesHelmValues: false
+      podMonitorSelectorNilUsesHelmValues: false
+
+# @schema
+# additionalProperties: true
+# @schema
+# @ignored
+runailib: {}

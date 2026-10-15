@@ -1,0 +1,4 @@
+{{- include "runailib.customCASecret" . }}
+---
+{{- /* runai-cluster's post-install RBAC hook writes into this namespace but no template creates it. */}}
+{{- include "runailib.namespace" (dict "context" . "name" "runai-reservation") }}

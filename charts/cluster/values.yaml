@@ -1,0 +1,32 @@
+# yaml-language-server: $schema=values.schema.json
+
+# @schema
+# additionalProperties: true
+# patternProperties:
+#   ".*":
+#     type: [object, array, string, number, integer, boolean, "null"]
+# @schema
+# -- (object) Values for the upstream Run:ai runai-cluster chart
+# (https://helm.ngc.nvidia.com/nvidia/runai-oss). It installs KAI Scheduler as
+# runai-cluster.kai-resource-management.kai-scheduler.
+runai-cluster:
+  controlPlane:
+    # -- (string) Control-plane URL, https://<control-plane global.domain>.
+    url: ""
+    # -- (string) One-time installer token from the control plane's
+    # /api/v1/clusters/<uid>/cluster-install-info. scripts/register_cluster.sh mints one.
+    bootstrapToken: ""
+    # -- (string) Client secret, the alternative to bootstrapToken.
+    clientSecret: ""
+  cluster:
+    # -- (string) UUID the control plane assigned when the cluster was registered.
+    uid: ""
+    # -- (string) URL workloads on this cluster are served on. The control plane's URL when both
+    # run on the same Kubernetes cluster.
+    url: ""
+
+# @schema
+# additionalProperties: true
+# @schema
+# @ignored
+runailib: {}

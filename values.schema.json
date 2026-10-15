@@ -1,0 +1,245 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "properties": {
+    "cluster": {
+      "additionalProperties": true,
+      "description": "Cluster subchart: the upstream values under cluster.runai-cluster, including the registration values and KAI under cluster.runai-cluster.kai-resource-management.kai-scheduler. See charts/cluster/values.yaml.",
+      "required": [],
+      "title": "cluster",
+      "type": "object"
+    },
+    "controlplane": {
+      "additionalProperties": true,
+      "description": "Control-plane subchart: TLS for global.domain, and the upstream values under controlplane.control-plane. See charts/controlplane/values.yaml.",
+      "required": [],
+      "title": "controlplane",
+      "type": "object"
+    },
+    "global": {
+      "additionalProperties": true,
+      "description": " additionalProperties: true @schema global._runai configures this chart. Every other global key is passed to the upstream charts, which read e.g. global.domain, global.ingress, global.image and global.config.",
+      "properties": {
+        "_runai": {
+          "additionalProperties": false,
+          "properties": {
+            "cluster": {
+              "additionalProperties": false,
+              "properties": {
+                "enabled": {
+                  "default": false,
+                  "description": "Run:ai cluster, including KAI Scheduler. Release namespace must be runai. Needs a running control plane and the values scripts/register_cluster.sh writes.",
+                  "required": [],
+                  "title": "enabled",
+                  "type": "boolean"
+                }
+              },
+              "required": [],
+              "title": "cluster",
+              "type": "object"
+            },
+            "controlPlane": {
+              "additionalProperties": false,
+              "description": " namespace; values.\u003cprofile\u003e.yaml sets the switches for each.",
+              "properties": {
+                "enabled": {
+                  "default": false,
+                  "description": "Run:ai control plane. Release namespace must be runai-backend.",
+                  "required": [],
+                  "title": "enabled",
+                  "type": "boolean"
+                }
+              },
+              "required": [],
+              "title": "controlPlane"
+            },
+            "customCA": {
+              "additionalProperties": false,
+              "properties": {
+                "certificate": {
+                  "default": "",
+                  "description": "PEM CA bundle rendered into the runai-ca-cert Secret of the release namespace when global.customCA.enabled is true. Leave empty to create runai-ca-cert yourself.",
+                  "required": [],
+                  "title": "certificate",
+                  "type": "string"
+                }
+              },
+              "required": [],
+              "title": "customCA",
+              "type": "object"
+            },
+            "gpu": {
+              "additionalProperties": false,
+              "properties": {
+                "enabled": {
+                  "default": false,
+                  "description": "NVIDIA GPU Operator, or the fake GPU operator (gpu.fake-gpu-operator.enabled).",
+                  "required": [],
+                  "title": "enabled",
+                  "type": "boolean"
+                }
+              },
+              "required": [],
+              "title": "gpu",
+              "type": "object"
+            },
+            "kaiScheduler": {
+              "additionalProperties": false,
+              "properties": {
+                "enabled": {
+                  "default": false,
+                  "description": "Standalone KAI Scheduler, without Run:ai. Upstream documents namespace kai-scheduler. Never together with cluster, which bundles KAI.",
+                  "required": [],
+                  "title": "enabled",
+                  "type": "boolean"
+                }
+              },
+              "required": [],
+              "title": "kaiScheduler",
+              "type": "object"
+            },
+            "mode": {
+              "default": "auto",
+              "description": "\"auto\" lets templates call lookup. Set \"install\" or \"upgrade\" when rendering with `helm template` (ArgoCD), where lookup returns nothing.",
+              "enum": [
+                "auto",
+                "install",
+                "upgrade"
+              ],
+              "required": [],
+              "title": "mode"
+            },
+            "monitoring": {
+              "additionalProperties": false,
+              "properties": {
+                "enabled": {
+                  "default": false,
+                  "description": "kube-prometheus-stack. The Run:ai cluster requires a Prometheus Operator.",
+                  "required": [],
+                  "title": "enabled",
+                  "type": "boolean"
+                }
+              },
+              "required": [],
+              "title": "monitoring",
+              "type": "object"
+            },
+            "registry": {
+              "additionalProperties": false,
+              "properties": {
+                "password": {
+                  "default": "",
+                  "description": "Registry password or token.",
+                  "required": [],
+                  "title": "password",
+                  "type": "string"
+                },
+                "server": {
+                  "default": "",
+                  "description": "Registry host for the control-plane pull secret runai-reg-creds. Nothing is rendered unless server, username and password are all set. The images on nvcr.io/nvidia/runai-oss are public.",
+                  "required": [],
+                  "title": "server",
+                  "type": "string"
+                },
+                "username": {
+                  "default": "",
+                  "description": "Registry user.",
+                  "required": [],
+                  "title": "username",
+                  "type": "string"
+                }
+              },
+              "required": [],
+              "title": "registry",
+              "type": "object"
+            }
+          },
+          "required": [
+            "cluster",
+            "kaiScheduler",
+            "monitoring",
+            "gpu",
+            "registry",
+            "customCA"
+          ],
+          "title": "_runai",
+          "type": "object"
+        },
+        "customCA": {
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "default": false,
+              "description": "Trust the CA in Secret runai-ca-cert (key runai-ca.pem). Needed when the control-plane certificate is not signed by a public CA.",
+              "required": [],
+              "title": "enabled",
+              "type": "boolean"
+            }
+          },
+          "required": [],
+          "title": "customCA",
+          "type": "object"
+        },
+        "domain": {
+          "default": "",
+          "description": "FQDN the control plane is served on. Required by the controlPlane component.",
+          "required": [],
+          "title": "domain",
+          "type": "string"
+        },
+        "imagePullSecrets": {
+          "description": "Pull secrets for control-plane and KAI pods, as [{name: \u003csecret\u003e}]. The Run:ai cluster reads global.additionalImagePullSecrets (a list of names) instead.",
+          "items": {
+            "properties": {
+              "name": {
+                "required": [],
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ],
+            "type": "object"
+          },
+          "required": [],
+          "title": "imagePullSecrets",
+          "type": "array"
+        }
+      },
+      "required": [
+        "_runai",
+        "customCA"
+      ],
+      "title": "global"
+    },
+    "gpu": {
+      "additionalProperties": true,
+      "description": "GPU subchart: gpu.gpu-operator and gpu.fake-gpu-operator, each with an enabled switch.",
+      "required": [],
+      "title": "gpu",
+      "type": "object"
+    },
+    "kai": {
+      "additionalProperties": true,
+      "description": "Standalone KAI subchart: the upstream values under kai.kai-scheduler.",
+      "required": [],
+      "title": "kai",
+      "type": "object"
+    },
+    "monitoring": {
+      "additionalProperties": true,
+      "description": "Monitoring subchart: the upstream values under monitoring.kube-prometheus-stack.",
+      "required": [],
+      "title": "monitoring",
+      "type": "object"
+    },
+    "runailib": {
+      "additionalProperties": true,
+      "description": " additionalProperties: true @schema @ignored",
+      "required": [],
+      "title": "runailib"
+    }
+  },
+  "required": [],
+  "type": "object"
+}

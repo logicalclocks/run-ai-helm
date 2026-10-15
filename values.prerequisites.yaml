@@ -1,0 +1,9 @@
+# Release: runai-prerequisites, any namespace (scripts/install.sh uses runai-prerequisites).
+# The Prometheus Operator and a GPU stack, which the Run:ai cluster operator checks for.
+# Skip a component the cluster already runs.
+global:
+  _runai:
+    monitoring:
+      enabled: true
+    gpu:
+      enabled: true

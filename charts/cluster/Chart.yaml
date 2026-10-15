@@ -1,0 +1,14 @@
+apiVersion: v2
+name: cluster
+description: Run:ai cluster (operator, admission, agent) with KAI Scheduler via kai-resource-management
+type: application
+version: 0.1.0
+appVersion: "3.0.20"
+dependencies:
+  - name: runailib
+    version: 0.1.0
+    repository: file://../runailib
+  # Pulls in kai-resource-management v0.18.3, which pulls in kai-scheduler v0.18.3.
+  - name: runai-cluster
+    version: 3.0.20
+    repository: https://helm.ngc.nvidia.com/nvidia/runai-oss

@@ -1,0 +1,14 @@
+apiVersion: v2
+name: monitoring
+description: Prometheus Operator, which the Run:ai cluster operator requires
+type: application
+version: 0.1.0
+appVersion: "76.2.0"
+dependencies:
+  - name: runailib
+    version: 0.1.0
+    repository: file://../runailib
+  # Pinned to what runai-installer installs for Run:ai 3.0 (internal/orchestrator2/compat/matrix.go).
+  - name: kube-prometheus-stack
+    version: 76.2.0
+    repository: https://prometheus-community.github.io/helm-charts

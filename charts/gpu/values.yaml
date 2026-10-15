@@ -1,0 +1,30 @@
+# yaml-language-server: $schema=values.schema.json
+
+# @schema
+# additionalProperties: true
+# patternProperties:
+#   ".*":
+#     type: [object, array, string, number, integer, boolean, "null"]
+# @schema
+# -- (object) Values for the NVIDIA GPU Operator (https://helm.ngc.nvidia.com/nvidia).
+gpu-operator:
+  # -- (bool) Install the NVIDIA GPU Operator.
+  enabled: true
+
+# @schema
+# additionalProperties: true
+# patternProperties:
+#   ".*":
+#     type: [object, array, string, number, integer, boolean, "null"]
+# @schema
+# -- (object) Values for the Run:ai fake GPU operator, which simulates GPUs on nodes labelled
+# run.ai/simulated-gpu-node-pool=<pool>. For test clusters without GPUs.
+fake-gpu-operator:
+  # -- (bool) Install the fake GPU operator instead of the NVIDIA GPU Operator.
+  enabled: false
+
+# @schema
+# additionalProperties: true
+# @schema
+# @ignored
+runailib: {}

@@ -1,0 +1,21 @@
+# yaml-language-server: $schema=values.schema.json
+
+# @schema
+# additionalProperties: true
+# patternProperties:
+#   ".*":
+#     type: [object, array, string, number, integer, boolean, "null"]
+# @schema
+# -- (object) Values for the upstream kai-scheduler chart
+# (oci://ghcr.io/kai-scheduler/kai-scheduler). Its global.* keys are set at the umbrella's
+# global level.
+kai-scheduler:
+  # -- (bool) OpenShift mode. Upstream auto-detects it with a lookup, which returns nothing under
+  # `helm template` and ArgoCD; values.openshift.yaml sets it.
+  openshift: false
+
+# @schema
+# additionalProperties: true
+# @schema
+# @ignored
+runailib: {}

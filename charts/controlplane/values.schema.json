@@ -1,0 +1,112 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "properties": {
+    "control-plane": {
+      "additionalProperties": true,
+      "description": "Values for the upstream Run:ai control-plane chart (https://helm.ngc.nvidia.com/nvidia/runai-oss). Its global.* keys are set at the umbrella's global level.",
+      "patternProperties": {
+        ".*": {
+          "required": [],
+          "type": [
+            "object",
+            "array",
+            "string",
+            "number",
+            "integer",
+            "boolean",
+            "null"
+          ]
+        }
+      },
+      "required": [],
+      "title": "control-plane",
+      "type": "object"
+    },
+    "global": {
+      "description": "Global values are values that can be accessed from any chart or subchart by exactly the same name.",
+      "required": [],
+      "title": "global",
+      "type": "object"
+    },
+    "runailib": {
+      "additionalProperties": true,
+      "description": " additionalProperties: true @schema @ignored",
+      "required": [],
+      "title": "runailib"
+    },
+    "tls": {
+      "additionalProperties": false,
+      "description": "TLS for the control-plane ingress. The upstream chart reads the Secret runai-backend-tls (Ingress, PostgreSQL TLS); set exactly one of certificate+key or certManager.enabled, or create runai-backend-tls yourself before installing.",
+      "properties": {
+        "certManager": {
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "default": false,
+              "description": "Issue runai-backend-tls with a cert-manager Certificate for global.domain.",
+              "required": [],
+              "title": "enabled",
+              "type": "boolean"
+            },
+            "issuerRef": {
+              "additionalProperties": true,
+              "description": "cert-manager issuer that signs the certificate.",
+              "properties": {
+                "group": {
+                  "default": "cert-manager.io",
+                  "required": [],
+                  "title": "group",
+                  "type": "string"
+                },
+                "kind": {
+                  "default": "ClusterIssuer",
+                  "required": [],
+                  "title": "kind",
+                  "type": "string"
+                },
+                "name": {
+                  "default": "",
+                  "required": [],
+                  "title": "name",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name",
+                "kind",
+                "group"
+              ],
+              "title": "issuerRef",
+              "type": "object"
+            }
+          },
+          "required": [],
+          "title": "certManager",
+          "type": "object"
+        },
+        "certificate": {
+          "default": "",
+          "description": "PEM certificate chain for global.domain. Rendered into runai-backend-tls.",
+          "required": [],
+          "title": "certificate",
+          "type": "string"
+        },
+        "key": {
+          "default": "",
+          "description": "PEM private key matching tls.certificate.",
+          "required": [],
+          "title": "key",
+          "type": "string"
+        }
+      },
+      "required": [
+        "certManager"
+      ],
+      "title": "tls",
+      "type": "object"
+    }
+  },
+  "required": [],
+  "type": "object"
+}

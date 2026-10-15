@@ -1,0 +1,6 @@
+# Release: runai-backend in namespace runai-backend. Also set global.domain and TLS
+# (controlplane.tls or a pre-created runai-backend-tls Secret).
+global:
+  _runai:
+    controlPlane:
+      enabled: true

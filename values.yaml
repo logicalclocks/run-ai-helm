@@ -1,0 +1,101 @@
+# yaml-language-server: $schema=values.schema.json
+
+# @schema
+# additionalProperties: true
+# @schema
+# global._runai configures this chart. Every other global key is passed to the upstream charts,
+# which read e.g. global.domain, global.ingress, global.image and global.config.
+global:
+  _runai:
+    # @schema
+    # enum: ["auto", "install", "upgrade"]
+    # @schema
+    # -- "auto" lets templates call lookup. Set "install" or "upgrade" when rendering with
+    # `helm template` (ArgoCD), where lookup returns nothing.
+    mode: auto
+    # One chart, several releases. Each release enables the components that belong in its
+    # namespace; values.<profile>.yaml sets the switches for each.
+    controlPlane:
+      # -- (bool) Run:ai control plane. Release namespace must be runai-backend.
+      enabled: false
+    cluster:
+      # -- (bool) Run:ai cluster, including KAI Scheduler. Release namespace must be runai. Needs a
+      # running control plane and the values scripts/register_cluster.sh writes.
+      enabled: false
+    kaiScheduler:
+      # -- (bool) Standalone KAI Scheduler, without Run:ai. Upstream documents namespace kai-scheduler.
+      # Never together with cluster, which bundles KAI.
+      enabled: false
+    monitoring:
+      # -- (bool) kube-prometheus-stack. The Run:ai cluster requires a Prometheus Operator.
+      enabled: false
+    gpu:
+      # -- (bool) NVIDIA GPU Operator, or the fake GPU operator (gpu.fake-gpu-operator.enabled).
+      enabled: false
+    registry:
+      # -- (string) Registry host for the control-plane pull secret runai-reg-creds. Nothing is
+      # rendered unless server, username and password are all set. The images on
+      # nvcr.io/nvidia/runai-oss are public.
+      server: ""
+      # -- (string) Registry user.
+      username: ""
+      # -- (string) Registry password or token.
+      password: ""
+    customCA:
+      # -- (string) PEM CA bundle rendered into the runai-ca-cert Secret of the release namespace
+      # when global.customCA.enabled is true. Leave empty to create runai-ca-cert yourself.
+      certificate: ""
+
+  # The keys below are read directly by the upstream Run:ai and KAI charts.
+
+  # -- (string) FQDN the control plane is served on. Required by the controlPlane component.
+  domain: ""
+  customCA:
+    # -- (bool) Trust the CA in Secret runai-ca-cert (key runai-ca.pem). Needed when the
+    # control-plane certificate is not signed by a public CA.
+    enabled: false
+  # @schema
+  # items: {type: object, required: [name], properties: {name: {type: string}}}
+  # @schema
+  # -- (list) Pull secrets for control-plane and KAI pods, as [{name: <secret>}]. The Run:ai
+  # cluster reads global.additionalImagePullSecrets (a list of names) instead.
+  imagePullSecrets: []
+
+# @schema
+# additionalProperties: true
+# @schema
+# @ignored
+runailib: {}
+
+# Subchart values. Each subchart's values.yaml documents its own keys; the upstream chart's values
+# go one level further down, e.g. controlplane.control-plane.<key>.
+
+# @schema
+# additionalProperties: true
+# @schema
+# -- (object) Control-plane subchart: TLS for global.domain, and the upstream values under
+# controlplane.control-plane. See charts/controlplane/values.yaml.
+controlplane: {}
+# @schema
+# additionalProperties: true
+# @schema
+# -- (object) Cluster subchart: the upstream values under cluster.runai-cluster, including the
+# registration values and KAI under cluster.runai-cluster.kai-resource-management.kai-scheduler.
+# See charts/cluster/values.yaml.
+cluster: {}
+# @schema
+# additionalProperties: true
+# @schema
+# -- (object) Standalone KAI subchart: the upstream values under kai.kai-scheduler.
+kai: {}
+# @schema
+# additionalProperties: true
+# @schema
+# -- (object) Monitoring subchart: the upstream values under monitoring.kube-prometheus-stack.
+monitoring: {}
+# @schema
+# additionalProperties: true
+# @schema
+# -- (object) GPU subchart: gpu.gpu-operator and gpu.fake-gpu-operator, each with an enabled
+# switch.
+gpu: {}

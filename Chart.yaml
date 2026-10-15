@@ -1,0 +1,30 @@
+apiVersion: v2
+name: runai
+description: Installs NVIDIA Run:ai (control plane and cluster) and the KAI Scheduler it schedules with
+type: application
+version: "0.1.0"
+appVersion: "3.0.20"
+# runai-cluster 3.0.20 needs >= 1.30 and kube-prometheus-stack 76.2.0 needs >= 1.25.
+kubeVersion: ">= 1.30.0-0"
+
+# One chart, several releases: each release enables the components that belong in its namespace
+# through the global._runai.<component>.enabled switches (see values.<profile>.yaml). A Helm
+# condition list is an OR over the keys that are set, not an AND, so each entry names one key.
+dependencies:
+  - name: runailib
+    version: 0.1.0
+  - name: controlplane
+    version: 0.1.0
+    condition: global._runai.controlPlane.enabled
+  - name: cluster
+    version: 0.1.0
+    condition: global._runai.cluster.enabled
+  - name: kai
+    version: 0.1.0
+    condition: global._runai.kaiScheduler.enabled
+  - name: monitoring
+    version: 0.1.0
+    condition: global._runai.monitoring.enabled
+  - name: gpu
+    version: 0.1.0
+    condition: global._runai.gpu.enabled

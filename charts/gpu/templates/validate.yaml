@@ -1,0 +1,3 @@
+{{- if and (index .Values "gpu-operator" "enabled") (index .Values "fake-gpu-operator" "enabled") -}}
+{{- fail "gpu: enable gpu-operator or fake-gpu-operator, not both: both register the nvidia.com/gpu resource" -}}
+{{- end -}}

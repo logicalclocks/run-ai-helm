@@ -1,0 +1,9 @@
+dependencies:
+- name: runailib
+  repository: file://../runailib
+  version: 0.1.0
+- name: control-plane
+  repository: https://helm.ngc.nvidia.com/nvidia/runai-oss
+  version: 3.0.20
+digest: sha256:1ba7e1d8eb7c260f3dbd13e67283287241d4a6a929d4314c0f9b4ffdcd6cdddc
+generated: "2026-10-15T04:50:50.644515612+02:00"

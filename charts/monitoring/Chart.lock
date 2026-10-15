@@ -1,0 +1,9 @@
+dependencies:
+- name: runailib
+  repository: file://../runailib
+  version: 0.1.0
+- name: kube-prometheus-stack
+  repository: https://prometheus-community.github.io/helm-charts
+  version: 76.2.0
+digest: sha256:38f5af95b4471e39ccc3df050fdfd21304a2713844e1646d3c6d1208f62e203f
+generated: "2026-10-15T04:49:21.343917816+02:00"

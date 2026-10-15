@@ -1,0 +1,17 @@
+# OpenShift. Upstream detects OpenShift with lookup, which returns nothing under `helm template`
+# (ArgoCD), so this file states it. OpenShift ships its own Prometheus Operator
+# (openshift-monitoring), which the Run:ai operator uses: leave global._runai.monitoring off.
+global:
+  config:
+    kubernetesDistribution: openshift
+cluster:
+  runai-cluster:
+    openShift:
+      mode: Enabled
+    kai-resource-management:
+      openshift: true
+      kai-scheduler:
+        openshift: true
+kai:
+  kai-scheduler:
+    openshift: true

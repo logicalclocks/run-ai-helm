@@ -1,0 +1,9 @@
+dependencies:
+- name: runailib
+  repository: file://../runailib
+  version: 0.1.0
+- name: runai-cluster
+  repository: https://helm.ngc.nvidia.com/nvidia/runai-oss
+  version: 3.0.20
+digest: sha256:ff7a9a563e92651c6a293058e30eb1c5363b173aa27b92a3e43c111656d051a9
+generated: "2026-10-15T04:50:41.872390621+02:00"

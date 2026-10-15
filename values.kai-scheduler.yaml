@@ -1,0 +1,6 @@
+# Release: kai-scheduler in namespace kai-scheduler. KAI Scheduler on its own, for clusters
+# that do not run Run:ai. Not needed with values.cluster.yaml, which installs KAI already.
+global:
+  _runai:
+    kaiScheduler:
+      enabled: true

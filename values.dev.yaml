@@ -1,0 +1,13 @@
+# Test clusters without GPUs: the prerequisites profile installs the fake GPU operator in place
+# of the NVIDIA one. Label the nodes that should report GPUs:
+#   kubectl label node <node> run.ai/simulated-gpu-node-pool=default
+gpu:
+  gpu-operator:
+    enabled: false
+  fake-gpu-operator:
+    enabled: true
+    topology:
+      nodePools:
+        default:
+          gpuProduct: Tesla-A10
+          gpuCount: 8
