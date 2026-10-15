@@ -162,6 +162,29 @@ ArgoCD renders with `helm template`, so:
 - The cluster Application needs the registration values. Run `scripts/register_cluster.sh` and
   store its output in a Secret-backed values source, since it holds a bootstrap token.
 
+## Cluster ingress
+
+The Run:ai cluster takes its routing settings through `clusterConfig`, a merge patch into its
+`RunaiConfig`. To use HAProxy instead of nginx:
+
+```yaml
+cluster:
+  runai-cluster:
+    clusterConfig:
+      global:
+        ingress:
+          ingressClass: haproxy
+```
+
+## Commercial charts
+
+NVIDIA also publishes the commercial Run:ai line (2.x) as `control-plane` and `runai-cluster` in
+`https://helm.ngc.nvidia.com/nvidia/runai`, which needs an NGC API key. Those charts take the
+same install values (`controlPlane.url`, `controlPlane.clientSecret`, `cluster.uid`,
+`cluster.url`, `clusterConfig`). Their `runai-cluster` 2.26.50 schedules with the proprietary
+`runai-engine` (v3.41.19, from `nvcr.io/artifactory`) instead of KAI Scheduler. This chart wraps the
+open-source 3.x line from `nvidia/runai-oss`.
+
 ## Upstream globals
 
 Each subchart passes its upstream chart's values one level down, for example
